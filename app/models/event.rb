@@ -29,4 +29,16 @@ class Event < ApplicationRecord
                                  message: ' is taken for this city' }
   validates :start_date, presence: true
   validates :end_date, presence: true
+
+  # scopes
+  scope :by_city_id, ->(id) { joins(:city).includes(:city).where('cities.id = ?', id) }
+  scope :in_date_range, ->(start_date, end_date) { where('start_date >= ? AND end_date <= ?', start_date, end_date) }
+  scope :by_topic_id, ->(id) { joins(:event_topics).includes(:event_topics).where('event_topics.topic_id = ?', id) }
+
+  def self.search(city_id, start_date, end_date, topic_id)
+    scope = unscoped.by_city_id(city_id)
+    scope = scope.in_date_range(start_date, end_date)
+    scope = scope.by_topic_id(topic_id)
+    scope
+  end
 end
