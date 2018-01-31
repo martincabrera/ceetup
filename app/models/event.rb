@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events
@@ -15,7 +16,6 @@
 #
 #  index_events_on_city_id  (city_id)
 #
-
 
 class Event < ApplicationRecord
   # associations
