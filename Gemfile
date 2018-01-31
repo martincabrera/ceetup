@@ -43,6 +43,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver'
+  gem 'annotate'
 end
 
 group :development do
