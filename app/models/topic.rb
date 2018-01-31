@@ -13,4 +13,8 @@
 class Topic < ApplicationRecord
   # validations
   validates :name, presence: true, uniqueness: true
+
+  # associations
+  has_many :event_topics, dependent: :destroy
+  has_many :events, through: :event_topics
 end

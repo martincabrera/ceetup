@@ -17,6 +17,7 @@
 #
 
 class EventTopic < ApplicationRecord
+  # associations
   belongs_to :event
   belongs_to :topic
 end
