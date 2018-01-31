@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :event do
-    name 'MyString'
+    name 'Ruby meetup'
     start_date '2018-01-30 21:18:58'
     end_date '2018-01-30 21:18:58'
     city nil
