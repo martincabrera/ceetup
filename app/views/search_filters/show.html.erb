@@ -1,13 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @search_filter.user %>
-</p>
+<h1>Search Filter</h1>
 
 <p>
   <strong>City:</strong>
-  <%= @search_filter.city %>
+  <%= @search_filter.city.name %>
 </p>
 
 <p>
@@ -22,8 +19,20 @@
 
 <p>
   <strong>Topic:</strong>
-  <%= @search_filter.topic %>
+  <%= @search_filter.topic.name %>
 </p>
+
+
+<% if @events.count.zero? %>
+  <h3>No events found that matched this filter</h3>
+<% else %>
+
+  <h3>List of events that matched this filter:</h3>
+  <% @events.each do |event| %>
+    <p><%= event.name %> <%= link_to 'Show Event', [:admin, event] %> </p>
+  <% end %>
+
+<% end %>
 
 <%= link_to 'Edit', edit_search_filter_path(@search_filter) %> |
 <%= link_to 'Back', search_filters_path %>

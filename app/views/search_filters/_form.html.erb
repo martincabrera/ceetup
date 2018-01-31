@@ -2,11 +2,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :user %>
-    <%= f.association :city %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.association :city, include_blank: false  %>
     <%= f.input :start_date %>
     <%= f.input :end_date %>
-    <%= f.association :topic %>
+    <%= f.association :topic, include_blank: false  %>
   </div>
 
   <div class="form-actions">

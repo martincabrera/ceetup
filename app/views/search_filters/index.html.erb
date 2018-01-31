@@ -5,7 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>User</th>
       <th>City</th>
       <th>Start date</th>
       <th>End date</th>
@@ -17,11 +16,10 @@
   <tbody>
     <% @search_filters.each do |search_filter| %>
       <tr>
-        <td><%= search_filter.user %></td>
-        <td><%= search_filter.city %></td>
+        <td><%= search_filter.city.name %></td>
         <td><%= search_filter.start_date %></td>
         <td><%= search_filter.end_date %></td>
-        <td><%= search_filter.topic %></td>
+        <td><%= search_filter.topic.name %></td>
         <td><%= link_to 'Show', search_filter %></td>
         <td><%= link_to 'Edit', edit_search_filter_path(search_filter) %></td>
         <td><%= link_to 'Destroy', search_filter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
