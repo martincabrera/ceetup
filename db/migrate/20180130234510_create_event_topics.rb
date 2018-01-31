@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateEventTopics < ActiveRecord::Migration[5.1]
   def change
     create_table :event_topics do |t|

@@ -5,6 +5,5 @@ Rails.application.routes.draw do
     resources :events
   end
 
-
   root 'admin/events#index'
 end
