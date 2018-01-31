@@ -4,4 +4,9 @@ Style/Documentation:
 
 Metrics/BlockLength:
   Exclude:
-    - 'db/schema.rb'
+    - db/schema.rb
+    - spec/**/*
+
+Metrics/MethodLength:
+  Exclude:
+  - db/**/*
