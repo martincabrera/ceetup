@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: search_filters
@@ -22,8 +24,8 @@ FactoryBot.define do
   factory :search_filter do
     user nil
     city nil
-    start_date "2018-01-31 20:22:24"
-    end_date "2018-01-31 20:22:24"
+    start_date '2018-01-31 20:22:24'
+    end_date '2018-01-31 20:22:24'
     topic nil
   end
 end
