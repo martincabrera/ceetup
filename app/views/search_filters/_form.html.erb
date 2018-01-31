@@ -1,0 +1,15 @@
+<%= simple_form_for(@search_filter) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :user %>
+    <%= f.association :city %>
+    <%= f.input :start_date %>
+    <%= f.input :end_date %>
+    <%= f.association :topic %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

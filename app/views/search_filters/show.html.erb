@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @search_filter.user %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @search_filter.city %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @search_filter.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @search_filter.end_date %>
+</p>
+
+<p>
+  <strong>Topic:</strong>
+  <%= @search_filter.topic %>
+</p>
+
+<%= link_to 'Edit', edit_search_filter_path(@search_filter) %> |
+<%= link_to 'Back', search_filters_path %>
