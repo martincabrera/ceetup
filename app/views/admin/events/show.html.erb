@@ -1,4 +1,27 @@
 <p id="notice"><%= notice %></p>
 
+
+<p>
+  <strong>City:</strong>
+  <%= @event.city.name %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @event.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @event.end_date %>
+</p>
+
+<p>
+  <strong>Topics:</strong>
+  <%= @event.topics.map(&:name).join(", ") %>
+</p>
+
+
+
 <%= link_to 'Edit', edit_admin_event_path(@event) %> |
 <%= link_to 'Back', admin_events_path %>
