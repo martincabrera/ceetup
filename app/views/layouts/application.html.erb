@@ -12,8 +12,7 @@
   </head>
 
   <body>
-
-    <%= yield %>
-
+    <div class="sidenav"> <%= render "layouts/components/sidebar" %></div>
+    <div class="main"><%= yield %></div>
   </body>
 </html>
