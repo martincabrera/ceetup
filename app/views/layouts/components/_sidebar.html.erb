@@ -1,6 +1,8 @@
-<ul>
-
-  <% if user_signed_in? %>
+<% if user_signed_in? %>
+  <h4 style="text-align: center;">
+    <%= current_user.email %>
+  </h4>
+  <ul>
     <li>
       <%= link_to('Events', admin_events_path) %>
     </li>
@@ -10,10 +12,12 @@
     <li>
       <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
     </li>
-  <% else %>
+  </ul>
+<% else %>
+  <ul>
     <li>
       <%= link_to('Login', new_user_session_path) %>
     </li>
-  <% end %>
+  </ul>
+<% end %>
 
-</ul>
