@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Notifier
   include Rails.application.routes.url_helpers
 
@@ -8,25 +10,31 @@ class Notifier
   end
 
   def notify
-    SearchFilter.by_city_id(event.city_id).by_topic_ids(event.topics.map(&:id)).in_range(event.start_date, event.end_date).each do |search_filter|
-      send_notification(User.find(search_filter.user_id), event)
+    search_filter_scope.each do |search_filter|
+      send_notification(search_filter.user_id, event)
     end
   end
 
   private
 
-  def send_notification(user, event)
+  def search_filter_scope
+    topic_ids = event.topics.map(&:id)
+    SearchFilter.by_city_id(event.city_id).by_topic_ids(topic_ids).in_range(event.start_date, event.end_date)
+  end
+
+  def send_notification(user_id, event)
+    user = User.find(user_id)
     if user.online?
       send_live_notification(user, event)
     else
       send_mail_notification(user, event)
     end
-
   end
 
   def send_live_notification(user, event)
-    ActionCable.server.broadcast "notifications:#{user.id}",
-                                 { html: "<div style='padding-left:5px'>There is the new event called '#{event.name}' in #{event.city_name} that matches your search filters <a href='#{admin_event_path(event)}'>here</a></div>" }
+    html = ApplicationController.render partial: 'notification_channel/event_notification_message',
+                                        locals: { event: event, url: admin_event_path(event) }, formats: [:html]
+    ActionCable.server.broadcast "notifications:#{user.id}", html: html
   end
 
   def send_mail_notification(user, event)
