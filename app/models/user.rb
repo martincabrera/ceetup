@@ -29,4 +29,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def online?
+    RedisConnection.connection.exists(id)
+  end
 end
