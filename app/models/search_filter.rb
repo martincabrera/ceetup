@@ -21,7 +21,13 @@
 #
 
 class SearchFilter < ApplicationRecord
+  # associations
   belongs_to :user
   belongs_to :city
   belongs_to :topic
+
+  # scopes
+  scope :by_city_id, ->(id) { where(city_id: id) }
+  scope :by_topic_ids, ->(ids) { where(topic_id: ids) }
+  scope :in_range, ->(start_date, end_date) { where('start_date <= ? AND end_date >= ?', start_date, end_date) }
 end
