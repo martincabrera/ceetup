@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Ceetup, a meetup clone!" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
@@ -13,6 +13,10 @@
 
   <body>
     <div class="sidenav"> <%= render "layouts/components/sidebar" %></div>
-    <div class="main"><%= yield %></div>
+    <div class="main">
+      <div id="notifications"></div>
+      <%= yield %>
+
+    </div>
   </body>
 </html>
