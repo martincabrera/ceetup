@@ -10,7 +10,7 @@ class RedisConnection
       require 'mock_redis'
       MockRedis.new
     else
-      Redis.new
+      Redis.new(host: 'localhost', port: 6379)
     end
   end
 end
