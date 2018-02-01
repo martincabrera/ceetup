@@ -20,9 +20,9 @@
         <td><%= search_filter.start_date %></td>
         <td><%= search_filter.end_date %></td>
         <td><%= search_filter.topic.name %></td>
-        <td><%= link_to 'Show', search_filter %></td>
+        <td><%= link_to 'Show', search_filter_path(search_filter) %></td>
         <td><%= link_to 'Edit', edit_search_filter_path(search_filter) %></td>
-        <td><%= link_to 'Destroy', search_filter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', search_filter_path(search_filter), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

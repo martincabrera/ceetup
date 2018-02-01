@@ -29,7 +29,7 @@
 
   <h3>List of events that matched this filter:</h3>
   <% @events.each do |event| %>
-    <p><%= event.name %> <%= link_to 'Show Event', [:admin, event] %> </p>
+    <p><%= event.name %> <%= link_to 'Show Event', admin_event_path(event) %> </p>
   <% end %>
 
 <% end %>
