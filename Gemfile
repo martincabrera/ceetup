@@ -45,6 +45,7 @@ group :development, :test do
   gem 'annotate'
   gem 'capybara', '~> 2.13'
   gem 'factory_bot_rails'
+  gem 'mock_redis'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver'
 end
