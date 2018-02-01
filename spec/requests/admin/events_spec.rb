@@ -51,17 +51,38 @@ describe 'Admin Events request specs', type: :request do
         }
         expect(response).to redirect_to admin_events_path
       end
+    end
+
+    context 'notifications' do
+      let(:city) { create(:city) }
+      let(:topic) { create(:topic) }
+      let(:second_user) { create(:second_user) }
 
       it 'sends an email to the a user whose search filter matches this event and is not logged in' do
-        city = create(:city)
-        topic = create(:topic)
-        create(:search_filter, user: create(:second_user), city: city, topic: topic, start_date: Time.zone.now - 15.days, end_date: Time.zone.now + 15.days)
+        create(:search_filter, user: second_user, city: city, topic: topic, start_date: Time.zone.now - 15.days, end_date: Time.zone.now + 15.days)
         expect do
-          event_attributes = attributes_for(:event).merge(city_id: city.id).merge(topic_ids: [topic.id]).merge(start_date: Time.zone.now + 10.minutes, end_date: Time.zone.now + 70.minutes)
+          event_attributes = attributes_for(:event)
+                             .merge(city_id: city.id)
+                             .merge(topic_ids: [topic.id])
+                             .merge(start_date: Time.zone.now + 10.minutes, end_date: Time.zone.now + 70.minutes)
           post admin_events_url, params: {
             event: event_attributes
           }
         end.to change(ActionMailer::Base.deliveries, :count).by(1)
+      end
+
+      it 'sends a Notification to the a user whose search filter matches this event and is logged in' do
+        allow_any_instance_of(User).to receive(:online?).and_return(true)
+        create(:search_filter, user: user, city: city, topic: topic, start_date: Time.zone.now - 15.days, end_date: Time.zone.now + 15.days)
+        event_attributes = attributes_for(:event)
+                           .merge(city_id: city.id)
+                           .merge(topic_ids: [topic.id])
+                           .merge(start_date: Time.zone.now + 10.minutes, end_date: Time.zone.now + 70.minutes)
+        expect do
+          post admin_events_url, params: {
+            event: event_attributes
+          }
+        end.to have_broadcasted_to("notifications:#{user.id}").with(html: broadcast_message(event_attributes[:name], city.name))
       end
     end
   end
@@ -105,5 +126,10 @@ describe 'Admin Events request specs', type: :request do
         delete admin_event_url(event)
       end.to change(Event.all, :count).by(-1)
     end
+  end
+
+  def broadcast_message(event_name, city_name)
+    "\u003cdiv style='padding-left:5px'\u003e\n  There is this new event called '#{event_name}' in #{city_name} that matches your " \
+      "search filters \u003ca href='/admin/events/1'\u003ehere\u003c/a\u003e\n\u003c/div\u003e"
   end
 end
