@@ -29,4 +29,9 @@ FactoryBot.define do
     email 'myname@example.com'
     password '123456'
   end
+
+  factory :second_user, class: User do
+    email 'secondname@example.com'
+    password '123456'
+  end
 end

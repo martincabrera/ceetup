@@ -37,7 +37,7 @@ describe 'Admin Events request specs', type: :request do
     context 'with valid attributes' do
       it 'saves the new event in the database' do
         expect do
-          event_attributes = attributes_for(:event).merge(city_id: create(:city).id)
+          event_attributes = attributes_for(:event).merge(city_id: create(:city).id).merge(topic_ids: [create(:topic).id])
           post admin_events_url, params: {
             event: event_attributes
           }
@@ -50,6 +50,18 @@ describe 'Admin Events request specs', type: :request do
           event: event_attributes
         }
         expect(response).to redirect_to admin_events_path
+      end
+
+      it 'sends an email to the a user whose search filter matches this event and is not logged in' do
+        city = create(:city)
+        topic = create(:topic)
+        create(:search_filter, user: create(:second_user), city: city, topic: topic, start_date: Time.zone.now - 15.days, end_date: Time.zone.now + 15.days)
+        expect do
+          event_attributes = attributes_for(:event).merge(city_id: city.id).merge(topic_ids: [topic.id]).merge(start_date: Time.zone.now + 10.minutes, end_date: Time.zone.now + 70.minutes)
+          post admin_events_url, params: {
+            event: event_attributes
+          }
+        end.to change(ActionMailer::Base.deliveries, :count).by(1)
       end
     end
   end
