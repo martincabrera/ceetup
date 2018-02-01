@@ -36,6 +36,4 @@ class User < ApplicationRecord
   def online?
     RedisConnection.connection.exists(id)
   end
-
-
 end

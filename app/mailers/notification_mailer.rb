@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 include Rails.application.routes.url_helpers
 
 class NotificationMailer < ApplicationMailer
