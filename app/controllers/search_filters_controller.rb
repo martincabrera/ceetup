@@ -6,7 +6,7 @@ class SearchFiltersController < ApplicationController
 
   # GET /search_filters
   def index
-    @search_filters = SearchFilter.all
+    @search_filters = current_user.search_filters
   end
 
   # GET /search_filters/1
@@ -49,7 +49,7 @@ class SearchFiltersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_search_filter
-    @search_filter = SearchFilter.find(params[:id])
+    @search_filter = SearchFilter.find_by!(id: params[:id], user_id: current_user.id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
