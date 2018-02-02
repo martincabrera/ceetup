@@ -9,7 +9,7 @@ and to keep track of online users.
 * Make sure Ruby version 2.4.1 is installed and bundler gem available.
 * Execute:
  ```console
-git clone URL
+git clone https://github.com/martincabrera/ceetup.git
 ```
 * Execute:
  ```console
