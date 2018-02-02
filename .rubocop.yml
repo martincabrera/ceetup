@@ -11,3 +11,23 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Exclude:
   - db/**/*
+  
+Metrics/LineLength:
+  Exclude:
+  - db/**/*
+
+Style/StringLiterals:
+  Exclude:
+    - db/schema.rb
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - db/schema.rb
+
+Style/NumericLiterals:
+  Exclude:
+    - db/schema.rb
+
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    - db/schema.rb
